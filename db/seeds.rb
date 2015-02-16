@@ -1,13 +1,12 @@
 require 'faker'
 
 # Create Posts
-50.times do
+1.times do
   Post.create!(
-    title: Faker::Lorem.sentence,
-    body: Faker::Lorem.paragraph
+    title: "Third test in assignment",
+    body: "I can't remember any Latin from my classes in high school."
     )
 end
-
 posts = Post.all
 
 # Create Comments
@@ -15,8 +14,9 @@ posts = Post.all
   Comment.create!(
     post: posts.sample,
     body: Faker::Lorem.paragraph
-    )
+  )
 end
+
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
