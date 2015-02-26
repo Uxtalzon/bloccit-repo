@@ -9,20 +9,21 @@ class PostsController < ApplicationController
     @post = Post.new
     @topic = Topic.find(params[:topic_id])
     authorize @post
+  end
     
-       def create
+  def create
      @post = current_user.posts.build(params.require(:post).permit(:title, :body))
-         @topic = Topic.find(params[:topic_id])
-         authorize @post
-     if @post.save
+     @topic = Topic.find(params[:topic_id])
+     authorize @post
+   if @post.save
        flash[:notice] = "Post was saved."
        redirect_to @post
-     else
+   else
        flash[:error] = "There was an error saving the post. Please try again."
        render :new
-     end
    end
-  end
+ end
+
 
   def edit
     @post = Post.find(params[:id])
@@ -31,7 +32,7 @@ class PostsController < ApplicationController
   end
   
   def update
-     @post = Post.find(params[:id])
+    @post = Post.find(params[:id])
     @topic = Topic.find(params[:topic_id])
     authorize @post
      if @post.update_attributes(params.require(:post).permit(:title, :body))
