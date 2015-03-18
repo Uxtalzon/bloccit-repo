@@ -1,0 +1,13 @@
+<%= form_for [topic, post, post.comments.new] do |f| %>
+<h4>Add a comment:</h4>
+
+<div class="form-inline">
+  <%= form_group_tag(post.errors[:body]) do %>
+  <b>Body</b> <%= f.text_field :body, class: 'form-control' %>
+    <% end %>
+
+  <div class="form-group">
+    <%= f.submit "Create Comment", class: 'btn btn-default' %>
+  </div>
+</div>
+<% end %>

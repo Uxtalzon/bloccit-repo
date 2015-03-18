@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :posts
+  has_many :comments
   mount_uploader :avatar, AvatarUploader
 
 
@@ -11,7 +12,8 @@ class User < ActiveRecord::Base
    role == 'admin' 
  end 
 
-def moderator? 
-  role == 'moderator'
-end
+ def moderator? 
+   role == 'moderator'
+ end
+  
 end
