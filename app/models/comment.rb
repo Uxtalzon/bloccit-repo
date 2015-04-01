@@ -9,18 +9,13 @@ class Comment < ActiveRecord::Base
     @comment = Comment.new.current_user.post(params[:id])
   end
   
-  def destroy
-    @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])
-    @coment = @post.comments.find(params[:id])
-    
-    authorize @comment
-    if @comment.destroy
-      flash[:notice] = "Comment was removed."
-      redirect_to [@topic, @post]
-    else
-      flash[:error] = "Comment could not be removed. Try again."
-      redirect_to [@topic, @post]
+  after_create :send_favorite_emails
+ 
+  private
+ 
+  def send_favorite_emails
+    post.favorites.each do |favorite|
+      FavoriteMailer.new_comment(favorite.user, post, self).deliver
     end
   end
 end
